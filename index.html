@@ -1,341 +1,517 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html class=" responsive" lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+			<meta name="viewport" content="width=device-width,initial-scale=1">
+		<meta name="theme-color" content="#171a21">
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 
-	<head>
-		<meta charset="utf-8>
-		<meta name="viewpor" content"width=device-width, initial-scale=1">
-			<body style = "background-color:	#2e3138; background-position: center 0px;">
-			<style> 
-@font-face {
-    font-family: 'hl'; /*a name to be used later*/
-    src: url('halflife2.ttf'); /*URL to font*/
-	}
-	.classname {
-    font-family: 'hl';
-}	  
-@font-face {
-    font-family: 'tf'; /*a name to be used later*/
-    src: url('tf2build.ttf'); /*URL to font*/
-	}
-	.classname {
-    font-family: 'tf';
-}	  
-			</style> 
-																						  
 	
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-body {
-  margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
-}
+				<link href="https://use.typekit.net/wlx6kem.css" rel="stylesheet" type="text/css">
+					<link href="https://fonts.googleapis.com/css?family=Sigmar+One:400,700&amp;display=swap" rel="stylesheet" type="text/css">
+			
+	<link href="https://steamstore-a.akamaihd.net/public/shared/css/motiva_sans.css?v=FAK4O46_mOLB&amp;l=english" rel="stylesheet" type="text/css" >
+<link href="https://steamstore-a.akamaihd.net/public/shared/css/shared_global.css?v=lcGfOlaPVExN&amp;l=english" rel="stylesheet" type="text/css" >
+<link href="https://steamstore-a.akamaihd.net/public/shared/css/buttons.css?v=6uRURryOh96m&amp;l=english" rel="stylesheet" type="text/css" >
+<link href="https://steamstore-a.akamaihd.net/public/css/v6/store.css?v=JT1GtiQVk03U&amp;l=english" rel="stylesheet" type="text/css" >
+<link href="https://steamstore-a.akamaihd.net/public/css/v6/browse.css?v=7hoqLVcZ7KVq&amp;l=english" rel="stylesheet" type="text/css" >
+<link href="https://steamstore-a.akamaihd.net/public/css/v6/curators_common.css?v=oq3Vg4FbrO5u&amp;l=english" rel="stylesheet" type="text/css" >
+<link href="https://steamstore-a.akamaihd.net/public/css/v6/curator_recommendations.css?v=6Kct1k48O51z&amp;l=english" rel="stylesheet" type="text/css" >
+<link href="https://steamstore-a.akamaihd.net/public/css/v6/curator_announcements.css?v=9kD7YQCeHVeM&amp;l=english" rel="stylesheet" type="text/css" >
+<link href="https://steamstore-a.akamaihd.net/public/shared/css/shared_responsive.css?v=GXt0zg7hRLhk&amp;l=english" rel="stylesheet" type="text/css" >
+			<script>
+				(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+						(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+					m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+				})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-.hero-image {
-  background-image: url(background3.jpg);
-  background-color: #696969;
-  height: 250px;
-  background-position: center top, left top;
-  background-repeat: no-repeat;
-  background-size: cover;
-  position: relative;
-}
+				ga('create', 'UA-33786258-1', 'auto', {
+					'sampleRate': 0.4				});
+				ga('set', 'dimension1', false );
+				ga('set', 'dimension2', 'External' );
+				ga('set', 'dimension3', 'curator' );
+				ga('set', 'dimension4', "curator\/lists" );
+				ga('send', 'pageview' );
 
-.hero-text {
- 
-  position: absolute;
-  top: 50%;
-  left: 20%;
-  transform: translate(-50%, -50%);
-  color: white;
-}
-.hero-text2 {
- text-align: left;
-  position: absolute;
-  top: 55%;
-  left: 170%;
-  transform: translate(-50%, -50%);
-  color: white;
-}
-</style>
-</head>
-	</body>
-	<div class="hero-image">
-  <div class="hero-text">
-    <h1 style="font-size:50px"></h1>
-			<title>MetroHam</title>
+			</script>
+			<script type="text/javascript" src="https://steamstore-a.akamaihd.net/public/shared/javascript/jquery-1.8.3.min.js?v=.TZ2NKhB-nliU" ></script>
+<script type="text/javascript">$J = jQuery.noConflict();</script><script type="text/javascript" src="https://steamstore-a.akamaihd.net/public/shared/javascript/tooltip.js?v=.vG8yiuBTGwkE" ></script>
+
+<script type="text/javascript" src="https://steamstore-a.akamaihd.net/public/shared/javascript/shared_global.js?v=SBiaTBFBvKL9&amp;l=english" ></script>
+
+<script type="text/javascript" src="https://steamstore-a.akamaihd.net/public/javascript/main.js?v=KqfoDIrzNBSa&amp;l=english" ></script>
+
+<script type="text/javascript" src="https://steamstore-a.akamaihd.net/public/javascript/prototype-1.7.js?v=.a38iP7Khdmyy" ></script>
+
+<script type="text/javascript" src="https://steamstore-a.akamaihd.net/public/javascript/scriptaculous/_combined.js?v=Me1IBxzktiwk&amp;l=english&amp;load=effects,controls,slider" ></script>
+
+<script type="text/javascript" src="https://steamstore-a.akamaihd.net/public/javascript/dynamicstore.js?v=wsxUZSa28uP-&amp;l=english" ></script>
+
+
+		<script type="text/javascript">
+			document.addEventListener('DOMContentLoaded', function(event) { 
+				$J.data( document, 'x_readytime', new Date().getTime() ); 
+				$J.data( document, 'x_oldref', GetNavCookie() ); 
+				SetupTooltips( { tooltipCSSClass: 'store_tooltip'} ); 
+		});
+		</script><script type="text/javascript" src="https://steamstore-a.akamaihd.net/public/javascript/curator_common.js?v=2jIx7GVDppcC&amp;l=english" ></script>
+<script type="text/javascript" src="https://steamstore-a.akamaihd.net/public/javascript/curator_recommendations.js?v=6BSjQf2I6Wo1&amp;l=english" ></script>
+<script type="text/javascript" src="https://steamstore-a.akamaihd.net/public/javascript/app_tagging.js?v=MdMIhgbi1IHe&amp;l=english" ></script>
+<script type="text/javascript" src="https://steamstore-a.akamaihd.net/public/shared/javascript/shared_responsive_adapter.js?v=TbBMCK37KgCo&amp;l=english" ></script>
+	
 	</head>
-	<body>
-		<p><img src="metroham.jpg" width="180">  <div class="hero-text2"> <b><font face="sans-serif" size="8000" color="white">MetroHam</font></b></p>
-	</body>
-	<body>
-		<h2><font face="sans-serif" size="6" color="white"></h2></br clear="all">
-	</body>
-  </div>
+	<title>MetroHam</title>
+<body class="v6 game_bg curator creatorhome responsive_page">
+
+<div class="responsive_page_frame with_header">
+
+						<div class="responsive_page_menu_ctn mainmenu">
+				<div class="responsive_page_menu"  id="responsive_page_menu">
+										<div class="mainmenu_contents">
+						<div class="mainmenu_contents_items">
+
+						</div>
+						<div class="mainmenu_footer_spacer"></div>
+						<div class="mainmenu_footer">
+						
+							</span>
+						</div>
+					</div>
+									</div>
+			</div>
+		
+		<div class="responsive_local_menu_tab">
+
+		</div>
+
+		<div class="responsive_page_menu_ctn localmenu">
+			<div class="responsive_page_menu"  id="responsive_page_local_menu">
+				<div class="localmenu_content">
+				</div>
+			</div>
+		</div>
+
+
+
+					<div class="responsive_header">
+				<div class="responsive_header_content">
+					
+				</div>
+			</div>
+		
+		<div class="responsive_page_content_overlay">
+
+		</div>
+
+		<div class="responsive_fixonscroll_ctn nonresponsive_hidden ">
+		</div>
+	
+	<div class="responsive_page_content">
+
+
+					</a>
+			<!--[if lt IE 7]>
+			<style type="text/css">
+				#logo_holder img { filter:progid:DXImageTransform.Microsoft.Alpha(opacity=0); }
+				#logo_holder { display: inline-block; width: 176px; height: 44px; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='https://steamstore-a.akamaihd.net/public/images/v5/globalheader_logo.png'); }
+			</style>
+			<![endif]-->
+		</div>
+
+			<div class="supernav_container">
+	
+			
+	<script type="text/javascript">
+		jQuery(function($) {
+			$('#global_header .supernav').v_tooltip({'location':'bottom', 'destroyWhenDone': false, 'tooltipClass': 'supernav_content', 'offsetY':-4, 'offsetX': 1, 'horizontalSnap': 4, 'tooltipParent': '#global_header .supernav_container', 'correctForScreenSize': false});
+		});
+	</script>
+
+		
+					</div>
+							</div>
+					</div>
+			</div>
 </div>
-<html>
-<style>
+<div id="responsive_store_nav_ctn"></div><div data-cart-banner-spot="1"></div>
+		<div class="responsive_page_template_content">
 
-#button1{
-    width: 300px;
-    height: 40px;
-	position: relative;
-  	top: 270px;
-  	left: 30%;
- 	transform: translate(-50%, -50%);
-	border: none;
-	text-decoration: none;
-	display: inline-block;
-	color: white;
-	font-size: 20px;
-	background-color: #2e3138;
-	-webkit-transition-duration: 0.4s;
-	transition-duration: 0.4s;
-}
-#button1:hover {
-  background-color: white;
-  color: black;
-}
-#button2{
-    width: 300px;
-    height: 40px;
-	position: relative;
- 	top: 270px;
-  	left: 30%;
-  	transform: translate(-50%, -50%);
-	border: none;
-	text-decoration: none;
-	display: inline-block;
-	color: white;
-	font-size: 20px;
-	background-color: #2e3138;
-	-webkit-transition-duration: 0.4s;
-	transition-duration: 0.4s;
-}
-#button2:hover {
-  background-color: white;
-  color: black;
-#container{
-    text-align: center;
-}
-</style>
+			
 
-<div id="container">
-    <button type="button home-button" id="button1" >Home</button>
-    <button onclick="window.location.href ='list.html';" type="button contact-button" id="button2">Browse</button>
-</div>
-</body>
+		<script type="text/javascript">
+	var g_strCuratorBaseURL = "https:\/\/store.steampowered.com\/developer\/valve\/";
+	var g_strCuratorAdminURL = g_strCuratorBaseURL + 'admin/';
+
+	var g_strCuratorCommunityBaseURL = "https:\/\/steamcommunity.com\/groups\/Valve";
+		var g_bCanCurateApps = false;
+	var g_bCanUploadHeader = false;
+	var g_bIsCreatorHome = true;
+	var g_bIsDLCPage = false;
+	var g_bCanUpdateAvatar = true;
+	var g_mapAppIDToAppNameSearch = null;
+</script>
 
 
-	<meta charset="UTF-8">
-<link rel="stylesheet" type="text/css" href="../reset-meyer.css">
-<style type="text/css">
-body {
-	margin:10px;
-}
 
-#box1{
-  position: relative;
-  top: 0%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: white;
-height:210px;
-width:1200px;
-padding:10px;
- text-shadow: 2px 2px 4px #000000;
-}
+		<div class="background_header_ctn" style="background-image:url(background3.jpg)">
 
-#box1 {
-	background:  #5d5f64;
-	border-radius: 25px;
-}
+			<div class="background_gradient_ctn">&nbsp;</div>
+		</div>
+	
 
 
-h2, p  {
-	padding:5px;
-}
+		<div id="store_header" class="dlc">
+		<div class="content">
+			<div id="store_controls">
 
-#box1 p{
-	white-space:pre;
-	font-size:smaller;
-	font-family:monospace;
-}
-</style>
-	<body>
-	<div style = "position:relative;left:0px;top:320px; transform: scale(0.5,0.5);">
-	<div id="box1"> 
-								<font size= "6" color="B3B9BD">I’m a Team Fortress 2, Portal 2, Gmod, & Half Life 2 mapper. I've Been Mapping for 5 and half years. Most of my maps are in Portal 2 and in Team Fortress 2. I only post finished products in my Steam Workshop so most of my maps would be unfinished or incomplete in other accounts.</font>
+							<div class="store_header_btn_caps store_header_btn_leftcap"></div>
+							<div class="store_header_btn_caps store_header_btn_rightcap"></div>
 
-</br>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-</head>
-<body>
+									</div>
+			</div>
+					</div>
+	</div>
+				<script type="text/javascript">
+			$J( function() {
+				BindAutoFlyoutEvents();
 
-<div style = "position:relative; left:0px; top:150px;">
-<div class="container">
-<b><h1><font face="sans-serif" size="8000" color="8b98a0">Featured Work</font></h1></b>
-  <div id="myCarousel" class="carousel slide" data-ride="carousel">
-    <!-- Indicators -->
-    <ol class="carousel-indicators">
-      <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-      <li data-target="#myCarousel" data-slide-to="1"></li>
-      <li data-target="#myCarousel" data-slide-to="2"></li>
-	  <li data-target="#myCarousel" data-slide-to="3"></li>
-    </ol>
+				var $Window = $J(window);
+				var $Header = $J('#store_header');
+				var $ResponsiveNavCtn = $J('#responsive_store_nav_ctn');
+				var $HeaderWrapper;
+				$Window.on('Responsive_SmallScreenModeToggled.StoreMenu', function() {
+					var bUseSmallScreenMode =window.UseSmallScreenMode && window.UseSmallScreenMode();
 
-    <!-- Wrapper for slides -->
-    <div class="carousel-inner">
-      <div class="item active">
-        <img src="image1.jpg" alt="Los Angeles" style="width:100%;">
-      </div>
+					if ( !$HeaderWrapper )
+						$HeaderWrapper = $Header.wrap( $J('<div/>', {'class': 'responsive_store_nav_ctn_spacer'} ) ).parent();
 
-      <div class="item">
-        <img src="image2.jpg" alt="Chicago" style="width:100%;">
-      </div>
-    
-      <div class="item">
-        <img src="image3.jpg" alt="New york" style="width:100%;">
-      </div>
-	   <div class="item">
-        <img src="image4.jpg" alt="New york" style="width:100%;">
-      </div>
-    </div>
+					if ( bUseSmallScreenMode )
+						$ResponsiveNavCtn.append( $Header );
+					else
+						$HeaderWrapper.append( $Header );
 
-    <!-- Left and right controls -->
-    <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-      <span class="glyphicon glyphicon-chevron-left"></span>
-      <span class="sr-only">Previous</span>
-    </a>
-    <a class="right carousel-control" href="#myCarousel" data-slide="next">
-      <span class="glyphicon glyphicon-chevron-right"></span>
-      <span class="sr-only">Next</span>
-    </a>
-  </div>
-</div>
+
+					if ( bUseSmallScreenMode )
+					{
+						$Header.css( 'visibility', 'hidden' );
+						$Header.show();
+						var nMenuHeight = $J('#store_header' ).height() + $J('#store_header' ).offset().top;
+						if ( $Window.scrollTop() < nMenuHeight )
+							$Window.scrollTop( nMenuHeight - GetResponsiveHeaderFixedOffsetAdjustment() );
+
+						$Header.css('visibility', 'visible');
+					}
+				} ).trigger('Responsive_SmallScreenModeToggled.StoreMenu');
+
+									if( $J('#searchform').length > 0 )
+					{
+						var g_rgUserPreferences = {
+							excluded_tags : [],
+							excluded_content_descriptors : [3,4]						};
+						EnableSearchSuggestions( $J('#searchform')[0].elements['term'], '1_1056_lists_', 'US', 1, 'english', g_rgUserPreferences, '7603687' );
+					}
+				
+
+			} );
+		</script>
+	<script type="text/javascript">
+	var g_AccountID = 0;
+	var g_sessionID = "edafc24e9b7a13b66c9c55f9";
+	var g_ServerTime = 1579846361;
+
+	$J( InitMiniprofileHovers );
+
+			GStoreItemData.AddNavParams({
+			__page_default: "1_1056_lists_",
+			storemenu_recommendedtags: "1_1056_lists__17"		});
+		GDynamicStore.Init( 0, false, "", {"primary_language":null,"secondary_languages":null,"platform_windows":null,"platform_mac":null,"platform_linux":null,"hide_adult_content_violence":null,"hide_adult_content_sex":null,"timestamp_updated":null,"hide_store_broadcast":null,"review_score_preference":null,"timestamp_content_descriptor_preferences_updated":null} );
+		GStoreItemData.SetCurrencyFormatter( function( nValueInCents, bWholeUnitsOnly ) { var fmt = function( nValueInCents, bWholeUnitsOnly ) {	var format = v_numberformat( nValueInCents / 100, bWholeUnitsOnly ? 0 : 2, ".", ","); return format; };var strNegativeSymbol = '';	if ( nValueInCents < 0 ) { strNegativeSymbol = '-'; nValueInCents = -nValueInCents; }return strNegativeSymbol + "$" + fmt( nValueInCents, bWholeUnitsOnly );} );
+		GStoreItemData.SetCurrencyMinPriceIncrement( 1 );
+	</script>
+<div class="page_content_ctn curator_header_area_ctn">
+	<div class="page_content curator_header_ctn ">
+
+		<div class="header_area page_section" id="header_container" data-section-config="{}">
+
+			
+			<div id="curator_avatar_image" class="curator_avatar_image">
+				<a href="https://steamcommunity.com/id/MetroHam/"><img class="curator_avatar" src="metroham.jpg"></a>
+			</div>
+			<div id="header_curator_details" class="curator_details">
+				
+				<h2 class="pageheader curator_name">
+					<a href="https://steamcommunity.com/id/MetroHam/">MetroHam</a>
+				</h2>
+
+				
+
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+			</div>
 </div>
 
-</body>
-<html>	
-<style>
-#scale{
-	position: relative;
-  	top: 100%;
-  	left: -34%;
-	width: 1000px;
- }
- </style>
-		<div id="scale">
-<b><h1><font face="sans-serif" size="8000" color="8b98a0">List</font></h1></b>	
-	 	</div>
-<style>
 
-#button3{
-    width: 500px;
-    height: 500px;
-	position: relative;
-  	top: 500px;
-  	left: 1%;
- 	transform: translate(-50%, -50%);
-	border: none;
-	text-decoration: none;
-	display: inline-block;
-	color: white;
-	font-size: 20px;
-	background-image: url("list1.jpg");<br>
-  background-repeat: no-repeat;
-  background-position: center;
-	-webkit-transition-duration: 0.4s;
-	transition-duration: 0.4s;
-}
-#button3:hover {
-height: 550px; width: 550px;<br>
-position: auto;
-  background-repeat: no-repeat;
-  background-position: center;
-}
-#button4{
-    width: 500px;
-    height: 500px;
-	position: relative;
-  	top: 500px;
-  	left: 1%;
- 	transform: translate(-50%, -50%);
-	border: none;
-	text-decoration: none;
-	display: inline-block;
-	color: white;
-	font-size: 20px;
-	background-image: url("list2.jpg");<br>
-  background-repeat: no-repeat;
-  background-position: center;
-	-webkit-transition-duration: 0.4s;
-	transition-duration: 0.4s;
-}
-#button4:hover {
-height: 550px; width: 550px;<br>
-position: auto;
-  background-repeat: no-repeat;
-  background-position: center;
-}
-#button5{
-    width: 500px;
-    height: 500px;
-	position: relative;
-  	top: 500px;
-  	left: 1%;
- 	transform: translate(-50%, -50%);
-	border: none;
-	text-decoration: none;
-	display: inline-block;
-	color: white;
-	font-size: 20px;
-	background-image: url("list3.jpg");<br>
-  background-repeat: no-repeat;
-  background-position: center;
-	-webkit-transition-duration: 0.4s;
-	transition-duration: 0.4s;
-}
-#button5:hover {
-height: 550px; width: 550px;<br>
-position: auto;
-  background-repeat: no-repeat;
-  background-position: center;
-}
-#button6{
-    width: 500px;
-    height: 500px;
-	position: relative;
-  	top: 500px;
-  	left: 1%;
- 	transform: translate(-50%, -50%);
-	border: none;
-	text-decoration: none;
-	display: inline-block;
-	color: white;
-	font-size: 20px;
-	background-image: url("list4.jpg");<br>
-  background-repeat: no-repeat;
-  background-position: center;
-	-webkit-transition-duration: 0.4s;
-	transition-duration: 0.4s;
-}
-#button6:hover {
-height: 550px; width: 550px;<br>
-position: auto;
-  background-repeat: no-repeat;
-  background-position: center;								 
-#container2{
-    text-align: center;
-}
-						   </style>
-<div id="container2">
-					<button onclick="window.location.href ='tf2.html';" id="button3"style="position:relative; left: -15%; top:530px;"><b><font face="tf" size="8000" color="white">Team Foretress 2</font></b></button>
-					<button onclick="window.location.href ='hl2.html';" id="button4"style="position:relative; left: -15%; top:500px;"><b><font face="hl" size="8000" color="white">HALF-LIFE2</font></b></button>
-					<button onclick="window.location.href ='p2.html';" id="button5"style="position:relative; left: 71.5%; top:00px;"><b><font face="sans-serif" size="8000" color="white" style="padding: 2px 6px 4px 6px; background-color: #000000">Portal 2</font></b></button>
-					<button onclick="window.location.href ='gm.html';" id="button6"style="position:relative; left: 72%; top:00px;"><b><font face="sans-serif" size="8000" color="white">Garrys Mod</font></b></button>
-</div>						   
-						   
-						</html>										   
-</hmtl>
+
+<div class="page_content_ctn light_container bezel ">
+
+	<div class="page_content creator_announcement_parent editable">
+		<div class="navigation_bar">
+			<a href="index.html" class="selected featured">Home</a>
+			<a href="list.html" class="option_lists">Browse</a>
+			<a href="" class=" option_browse">Updates</a>
+												<div class="nav_right_side">
+				<div class="curator_report">
+					
+						
+					</a>
+				</div>
+			</div>
+		</div>
+
+
+<link href="https://steamstore-a.akamaihd.net/public/css/applications/store/main.css?v=vI6syPJZEBuL&amp;l=english" rel="stylesheet" type="text/css" >
+<link href="https://steamstore-a.akamaihd.net/public/css/applications/store/store.css?v=zJBnwu5HDcJI&amp;l=english" rel="stylesheet" type="text/css" >
+<script type="text/javascript" src="https://steamstore-a.akamaihd.net/public/javascript/applications/store/libraries.js?v=FzAEft2H5BG6&amp;l=english" ></script>
+<script type="text/javascript" src="https://steamstore-a.akamaihd.net/public/javascript/applications/store/main.js?v=eX5PLkUPOiTr&amp;l=english" ></script>
+
+					<div class="page_desc">
+				<p>I’m a Team Fortress 2, Portal 2, Gmod, & Half Life 2 mapper. I've Been Mapping for 5 and half years. Most of my maps are in Portal 2 and in Team Fortress 2. I only post finished products in my Steam Workshop so most of my maps would be unfinished or incomplete in other accounts.</p>
+
+			</div>
+		
+			
+
+		<div class="popup_block_new" id="curator_popup_body"  style="display: none;">
+			<div class="popup_body popup_menu">
+									<a id="curator_header_ignore" class="popup_menu_item ttip" href="javascript:IgnoreCurator( 4, true );HideMenu( this, 'curator_popup_body' );"
+						 data-tooltip-text="If you ignore a creator, then Steam will stop recommending any of the games that they publish or develop to you.">
+						<span>Ignore this creator</span>
+					</a>
+					<a id="curator_header_unignore" class="popup_menu_item" href="javascript:IgnoreCurator( 4, false );HideMenu( this, 'curator_popup_body' );"
+						style="display: none" >
+						<span>Remove ignore state</span>
+					</a>
+								<a href="javascript:ReportAbuse( '[g:1:4]' );" class="popup_menu_item ttip">
+					<span>Report this creator</span>
+				</a>
+			</div>
+		</div>
+
+
+	
+	
+	<div class="page_section" data-section-config="{&quot;type&quot;:&quot;none&quot;,&quot;listid&quot;:37465,&quot;listid_label&quot;:&quot;Featured Games&quot;,&quot;tagid&quot;:0,&quot;tagid_label&quot;:&quot;Select...&quot;,&quot;sort&quot;:&quot;recent&quot;,&quot;presentation&quot;:&quot;circularlist&quot;,&quot;linkedhomepages&quot;:&quot;[]&quot;,&quot;linktitle&quot;:&quot;franchise&quot;}" data-index="0">
+</div>	</div>
+
+
+<div class="page_content_ctn  ">
+	<div class="page_content editable" style="position:relative;">
+		<div class="page_section type_carousel curator_paginates  " data-section-config="{&quot;type&quot;:&quot;featured_list&quot;,&quot;listid&quot;:32971,&quot;listid_label&quot;:&quot;Select...&quot;,&quot;tagid&quot;:0,&quot;tagid_label&quot;:&quot;Select...&quot;,&quot;sort&quot;:&quot;topsellers&quot;,&quot;presentation&quot;:&quot;featuredcarousel&quot;,&quot;linkedhomepages&quot;:&quot;[\&quot;33078398\&quot;]&quot;,&quot;linktitle&quot;:&quot;franchise&quot;}" data-index="1">
+			<div id="featured_list_1" class="carousel_container paging_capsules recently_updated_apps">
+							<div class="section_title_ctn">		<div  class="section_title_ctn">
+			
+			<a href="https://store.steampowered.com/developer/valve/list/32971"><h2>Featured Work in Progress</h2></a>
+			<p></p>
+		</div>
+</div>
+			
+			<div class="carousel_items store_capsule_container curator_featured">
+									<div>
+					<div class="capsule">
+						<a    data-ds-tagids="[1659,1685,1663,3859,1774,19,3843]" data-ds-descids="[2,5]" data-ds-crtrids="[4]">
+							<img class="capimg" src="map_header1.jpg">
+													</a>
+						<div class="curator_review">
+							<div class="review_details  ">
+							
+														
+							</div>
+							“Team Fortress wip maps that may or may not seen the light of day. Showing maps or areas im heavily working on for the next update or new map.”						</div>
+					</div>
+					<div class="contents">
+														<div class="screenshots">
+																	<div style="background-image: url(map_side1.jpg)"></div>
+																	<div style="background-image: url(map_side2.jpg)"></div>
+																	<div style="background-image: url(map_side3.jpg)"></div>
+																	<div style="background-image: url(map_side4.jpg)"></div>
+																</div>
+																		</div>
+					</div>					<div>
+				
+														<div class="capsule">
+						<a    data-ds-tagids="[1659,1685,1663,3859,1774,19,3843]" data-ds-descids="[2,5]" data-ds-crtrids="[4]">
+							<img class="capimg" src="map_header2.jpg">
+													</a>
+						<div class="curator_review">
+							<div class="review_details  ">
+							
+														
+							</div>
+							“Portal wip maps or areas im heavily working on. Bringing new challanges and ideas to a puzzle that may or not be all that fun.”						</div>
+					</div>
+					<div class="contents">
+														<div class="screenshots">
+																	<div style="background-image: url(map_side5.jpg)"></div>
+																	<div style="background-image: url(map_side6.jpg)"></div>
+																	<div style="background-image: url(map_side7.jpg)"></div>
+																	<div style="background-image: url(map_side8.jpg)"></div>
+																</div>
+																		</div>
+					</div>					<div>
+				
+														<div class="capsule">
+						<a    data-ds-tagids="[1659,1685,1663,3859,1774,19,3843]" data-ds-descids="[2,5]" data-ds-crtrids="[4]">
+							<img class="capimg" src="map_header3.jpg">
+													</a>
+						<div class="curator_review">
+							<div class="review_details  ">
+							
+														
+							</div>
+							“Half-Life 2 wip levels, maps or areas im heavily working on. Making them for contest or for personal fun. Keeping it as close to Half Life 2 as possible.”						</div>
+					</div>
+					<div class="contents">
+														<div class="screenshots">
+																	<div style="background-image: url(map_side9.jpg)"></div>
+																	<div style="background-image: url(map_side10.jpg)"></div>
+																	<div style="background-image: url(map_side11.jpg)"></div>
+																	<div style="background-image: url(map_side12.jpg)"></div>
+																</div>
+																		</div>
+					</div>					<div>
+
+														<div class="capsule">
+						<a    data-ds-tagids="[1659,1685,1663,3859,1774,19,3843]" data-ds-descids="[2,5]" data-ds-crtrids="[4]">
+							<img class="capimg" src="map_header4.jpg">
+													</a>
+						<div class="curator_review">
+							<div class="review_details  ">
+							
+														
+							</div>
+							“Half-Life 2 wip levels, maps or areas im heavily working on. Making them for contest or for personal fun. Keeping it as close to Half Life 2 as possible.”						</div>
+					</div>
+					<div class="contents">
+														<div class="screenshots">
+																	<div style="background-image: url(map_side13.jpg)"></div>
+																	<div style="background-image: url(map_side14.jpg)"></div>
+																	<div style="background-image: url(map_side15.jpg)"></div>
+																	<div style="background-image: url(map_side16.jpg)"></div>
+																</div>
+																		</div>
+					</div>
+			</div>
+
+
+			<div class="carousel_thumbs featured">
+				<div></div><div></div><div></div><div></div>
+			</div>
+			<div class="arrow left"><div></div></div>
+			<div class="arrow right" ><div></div></div>
+		</div>
+
+		<script>
+			var fnOnBlur = function( nIndex )
+			{
+				$J('iframe',this.$elItems[nIndex]).each(function(i, j){
+					this.contentWindow.postMessage('{"event":"command","func":"stopVideo","args":""}', '*');
+				});
+			}
+			CreateFadingCarousel( $J('#featured_list_1'), 0, true, fnOnBlur);
+			$J('.curator_review', $J('#featured_list_1')).each(function(i, j){
+				var $el = $J(j);
+				if( $el.innerHeight() > 160 )
+				{
+					$el.addClass('oversize');
+				}
+			});
+		</script>
+	</div>		<div class="page_section type_list_homepages  " data-section-config="{&quot;type&quot;:&quot;link_homepages&quot;,&quot;listid&quot;:0,&quot;listid_label&quot;:&quot;Select...&quot;,&quot;tagid&quot;:1685,&quot;tagid_label&quot;:&quot;Co-op&quot;,&quot;sort&quot;:&quot;recent&quot;,&quot;presentation&quot;:&quot;circularlist&quot;,&quot;linkedhomepages&quot;:&quot;[\&quot;33078398\&quot;]&quot;,&quot;linktitle&quot;:&quot;franchise&quot;}" data-index="2">
+		<div id="featured_lists_2" class="carousel_container paging_capsules ">
+		<h2>All my Work</h2>
+
+		<div class="carousel_items store_capsule_container lists_more_container">
+							<div class="lists_more_container">
+											<a href="list.html" class="item" >
+							<div class="bg" style="background-image: url(center.jpg)"></div>
+							<div class="overlay"></div>
+							<div>
+								<div>Browse my work</div>
+							</div>
+
+						</a>
+									</div>
+					</div>
+
+		<div class="carousel_thumbs listblock">
+			
+		</div>
+		<div class="arrow left"><div></div></div>
+		<div class="arrow right" ><div></div></div>
+
+	</div>
+
+	<script>
+
+		CreateFadingCarousel( $J('#featured_lists_2'), 0, true);
+	</script>
+	</div>	</div>
+</div>
+
+
+	
+</div>
+
+	</div>						
+</body>		
+	<div id="scale2">
+<div class="page_content_ctn">
+	<div class="page_content ">
+
+		<div class="page_section">
+			<div  class="carousel_container paging_capsules ">
+
+				<h2>List</h2>
+
+					<div class="lists_more_container wrapping">
+													<a href="hl2.html" class="item"  >
+								<div class="bg" style=" background-image: url(list2.jpg)"></div>
+								<div class="overlay"></div>
+								<div>
+									<div>Half-Life 2</div>
+								</div>
+
+							</a>
+													<a href="p2.html" class="item"  >
+								<div class="bg" style="background-image: url(list3.jpg)"></div>
+								<div class="overlay"></div>
+								<div>
+									<div>Portal 2</div>
+								</div>
+
+							</a>
+													<a href="gm.html" class="item"  >
+								<div class="bg" style="background-image: url(list4.jpg)"></div>
+								<div class="overlay"></div>
+								<div>
+									<div>Garry's Mod</div>
+								</div>
+
+							</a>
+												
+											</div>
+
+
+
+			</div>
+
+
+		</div>
+
+</div>
+</div></body>
+</html>
