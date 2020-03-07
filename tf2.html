@@ -295,43 +295,95 @@
 	width: 1000px;
  }
  </style>
-		<div id="scale">
-<h2>Team Fortress 2 Maps</h2>
-<p>All the fun in one map</p>
-	<div class="featured_list_container carousel_container paging_capsules" id="featured_list_0">
-		<div class="carousel_items">
-							<div class="list_capsules">
-					<a   data-ds-tagids="[1663,19,3942,4182,1742,3839,1774]" data-ds-crtrids="[4,33078398]" class="store_capsule price_inline" data-ds-appid="380" href="https://tf2maps.net/downloads/cp_minery.5481/">
-					<div class="capsule header"><img src="tfm_header.jpg">
-					</div>
-					</a>
-					<a  data-ds-tagids="[19,1663,3859,1774,3942,3839,1693]" data-ds-crtrids="[4,33078398]" class="store_capsule price_inline"  href="">
-					<div class="capsule headerv5">
-					<img src="tfm_side1.jpg">
-					</div>
-					</a>
-					<a  data-ds-tagids="[1663,19,3942,1693,5144,4182,1742]" data-ds-crtrids="[4,33078398]" class="store_capsule price_inline"  href="">
-					<div class="capsule headerv5"><img src="tfm_side2.jpg">
-					</div>
-					</a>
-					<a  data-ds-tagids="[19,1663,3859,1774,3839,3942,3968]" data-ds-crtrids="[4]" class="store_capsule price_inline"  href="">
-					<div class="capsule headerv5"><img src="tfm_side3.jpg">
-					</div>
-					</a>
-					<a  data-ds-tagids="[1663,19,4182,3839,3942,1774,4234]" data-ds-crtrids="[4,33078398]" class="store_capsule price_inline" href="">
-					<div class="capsule headerv5"><img src="tfm_side4.jpg">
-					</div>
-					</a>				
-					</div>
+	<div id="scale">
+<div class="page_content_ctn  ">
+	<div class="page_content editable" style="position:relative;">
+		<div class="page_section type_carousel curator_paginates  " data-section-config="{&quot;type&quot;:&quot;featured_creations&quot;,&quot;listid&quot;:0,&quot;listid_label&quot;:&quot;S\u00e9lectionner...&quot;,&quot;tagid&quot;:0,&quot;tagid_label&quot;:&quot;S\u00e9lectionner...&quot;,&quot;sort&quot;:&quot;topsellers&quot;,&quot;presentation&quot;:&quot;featuredcarousel&quot;,&quot;linkedhomepages&quot;:&quot;[]&quot;,&quot;linktitle&quot;:&quot;franchise&quot;}" data-index="1">
+			<div id="featured_carousel_1" class="carousel_container paging_capsules recently_updated_apps">
+							<div class="section_title_ctn"><h2>Half Life 2 Maps</h2></div>
+							
+	<link rel="stylesheet" href="zoom-D.css"/>
+    <script src="zoom-D.js"></script>	
+			
+	<div id="lb-back">
+     <div id="lb-img"></div>
+    </div>
+			
+			<div class="carousel_items store_capsule_container curator_featured">
+									<div>			
 
+					<div class="capsule">
+						<a   data-ds-tagids="[4018,122,19,6426,1742,1695,4182]" data-ds-crtrids="[21394,33977966]" data-ds-appid="427290" href="https://tf2maps.net/downloads/cp_minery.5481/">
+							<img class="capimg" src="tfm_header.jpg">
+													</a>
+						<div class="curator_review">
+							<div class="review_details  ">
+												
+							</div>
+							“Minery™ is 2007 themed map based on the classic maps of Hydro, dustbowl, & 2fort. Gameplay and layout design heavily developed on the 2007 style of gameplay. This is a 2cp, multistage map that currently supports 2 stages with a 3rd on its way.”						</div>
 					</div>
+					<div class="contents">
+														<div class="screenshots">
+																	<div style="background-image: url(tfm_side1.jpg)"><img src=tfm_side1.jpg class="zoomD"></div>
+																	<div style="background-image: url(tfm_side2.jpg)"><img src=tfm_side2.jpg class="zoomD"></div>
+																	<div style="background-image: url(tfm_side3.jpg)"><img src=tfm_side3.jpg class="zoomD"></div>
+																	<div style="background-image: url(tfm_side4.jpg)"><img src=tfm_side4.jpg class="zoomD"></div>
+																</div>
+																		</div>
+					</div>
+			</div>
 
-		<div class="carousel_thumbs 5-up">
-			<div></div>		</div>
-		<div class="arrow left"><div></div></div>
-		<div class="arrow right" ><div></div></div>
 
+			<div class="carousel_thumbs featured">
+				<div></div>
+			</div>
+			<div class="arrow left"><div></div></div>
+			<div class="arrow right" ><div></div></div>
+		</div>
 
+		<script>
+			var fnOnBlur = function( nIndex )
+			{
+				$J('iframe',this.$elItems[nIndex]).each(function(i, j){
+					this.contentWindow.postMessage('{"event":"command","func":"stopVideo","args":""}', '*');
+				});
+			}
+			CreateFadingCarousel( $J('#featured_carousel_1'), 0, true, fnOnBlur);
+			$J('.curator_review', $J('#featured_carousel_1')).each(function(i, j){
+				var $el = $J(j);
+				if( $el.innerHeight() > 160 )
+				{
+					$el.addClass('oversize');
+				}
+			});
+		</script>
+	</div>		<div class="page_section type_carousel curator_paginates  " data-section-config="{&quot;type&quot;:&quot;featured_list&quot;,&quot;listid&quot;:41190,&quot;listid_label&quot;:&quot;S\u00e9lectionner...&quot;,&quot;tagid&quot;:0,&quot;tagid_label&quot;:&quot;S\u00e9lectionner...&quot;,&quot;sort&quot;:&quot;recent&quot;,&quot;presentation&quot;:&quot;featuredcarousel&quot;,&quot;linkedhomepages&quot;:&quot;[]&quot;,&quot;linktitle&quot;:&quot;franchise&quot;}" data-index="2">
+			<div id="featured_list_2" class="carousel_container paging_capsules recently_updated_apps">
+							<div class="section_title_ctn">		<div  class="section_title_ctn">
+			<div class="header_right_button">
+				
+				</div>
+		</div>
+</div>
+
+		<script>
+			var fnOnBlur = function( nIndex )
+			{
+				$J('iframe',this.$elItems[nIndex]).each(function(i, j){
+					this.contentWindow.postMessage('{"event":"command","func":"stopVideo","args":""}', '*');
+				});
+			}
+			CreateFadingCarousel( $J('#featured_list_2'), 0, true, fnOnBlur);
+			$J('.curator_review', $J('#featured_list_2')).each(function(i, j){
+				var $el = $J(j);
+				if( $el.innerHeight() > 160 )
+				{
+					$el.addClass('oversize');
+				}
+			});
+		</script>
+	</div>	</div>
+</div>
 	</div>
 
 	<script>
