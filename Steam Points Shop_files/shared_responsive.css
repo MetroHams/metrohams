@@ -290,7 +290,7 @@ html.responsive body {
 	height: 50px;
 	z-index: 12; /* behind overlay, on top of page content */
 
-	background-image: url( 'https://steamstore-a.akamaihd.net/public/shared/images/responsive/local_menu_hamburger.png' );
+	background-image: url( 'https://store.cloudflare.steamstatic.com/public/shared/images/responsive/local_menu_hamburger.png' );
 	background-repeat: no-repeat;
 	background-position: 2px center;
 	background-size: 110%;
@@ -457,73 +457,6 @@ html.responsive body {
 	height: 330px;
 }
 
-/* China Desktop Footer */
-
-.china_footer_content a, #footer .china_footer_content a {
-	color: #8F8E93;
-}
-
-.china_footer_content a:hover, #footer .china_footer_content a:hover {
-	color: #FFFFFF;
-}
-
-.china_footer_navlinks {
-	user-select: none;
-}
-
-.china_footer_content {
-	width: 940px;
-	margin: 0px auto;
-	padding-top: 16px;
-	color: #8F8E93;
-			font-family: "Motiva Sans", Sans-serif;
-		font-weight: normal; /* normal */
-
-		}
-
-.china_footer_row {
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-}
-
-.china_pw_logo {
-	margin-right: 10px;
-}
-
-.china_steam_logo {
-	width: 142px;
-	height: 44px;
-}
-
-.china_footer_line {
-	height: 1px;
-	background: #24272C;
-	margin: 20px 0;
-}
-
-.china_footer_social_box {
-	display: flex;
-	align-items: center;
-}
-
-.china_footer_social_box:first-of-type {
-	margin-right: 20px;
-}
-
-.china_footer_social_box.tooltip {
-	cursor: default;
-	user-select: none;
-}
-
-.china_footer_socials_ctn {
-	display: flex;
-}
-
-.china_footer_legal_ctn {
-	margin-top: 20px;
-}
-
 
 @media screen and (max-width: 910px)
 {
@@ -678,6 +611,18 @@ html.responsive body {
 		display: inline;
 	}
 
+	html.responsive img.nonresponsive_hidden {
+		display: block;
+	}
+
+	html.responsive a.nonresponsive_hidden {
+		display: block;
+	}
+
+	html.responsive h2.nonresponsive_hidden {
+		display: block;
+	}
+
 	html.responsive .responsive_hidden {
 		display: none;
 	}
@@ -783,4 +728,31 @@ html.force_desktop body #footer_responsive_optin_spacer {
 	background: #171a21;
 	box-shadow: 0 2px 4px 0 #000000;
 	z-index: 15;
+}
+
+.responsive_app_menu {
+	display: flex;
+	flex-direction: row;
+	cursor: pointer;
+}
+
+.responsive_app_menu .menu_ellipses {
+	width: 6px;
+	height: 6px;
+	background: #8A97A0;
+	border-radius: 3px;
+	margin-right: 3px;
+}
+
+@media screen and (max-width: 910px)
+{
+	html.responsive:not(.legacy_mobile) .responsive_scroll_snap_ctn {
+		scroll-snap-type: x mandatory;
+		-webkit-overflow-scrolling: touch;
+	}
+
+	html.responsive:not(.legacy_mobile) .responsive_scroll_snap_start {
+		scroll-snap-align: start;
+		overflow: visible;
+	}
 }

@@ -20,9 +20,37 @@ function GetElemSNR( $Elem )
 			break;
 		}
 	}
-	
+
 	$Elem.data( 'snr', snr );
 	return snr;
+}
+
+// given an array of impressions as strings, this will handle joining them all together into a singular string, but enforcing that it doesn't
+// go above the cookie size limit which can otherwise cause users to become stuck since the page requests will start failing
+function JoinImpressionsUpToLimit( rgImpressions )
+{
+	//cookies generally can go up to 4k bytes, but we can have problems when we start getting that close, so cut it off earlier
+	var nRemainingLen = 3200;
+	var result = '';
+	for ( var i = 0; i < rgImpressions.length; i++ )
+	{
+		var impression = String( rgImpressions[ i ] );
+		var nImpressionLen = encodeURIComponent( impression + '|' ).length;
+
+		//did we run out of room in our list?
+		if ( nRemainingLen < nImpressionLen )
+			break;
+
+		//add the separator if not the first entry
+		if ( result !== '' )
+			result += '|';
+
+		//add our impression and remove that space from what is available
+		result += impression;
+		nRemainingLen -= nImpressionLen;
+	}
+
+	return result;
 }
 
 GDynamicStore = {
@@ -63,10 +91,11 @@ GDynamicStore = {
 
 
 	s_ImpressionTracker: false,
+	s_bAllowAppImpressions: false,
 
-	Init: function( accountid, bForceRefresh, strOS, preferences, strCC )
+	Init: function( accountid, bForceRefresh, strOS, preferences, strCC, optsIn )
 	{
-
+		var opts = $J.extend( { bNoDefaultDescriptors: false }, optsIn || {} );
 		var rgDesiredOSTypes = strOS ? strOS.split(',') : 'any';
 
 		for( var i=0; i < rgDesiredOSTypes.length; i++ )
@@ -190,6 +219,7 @@ GDynamicStore = {
 				GDynamicStore.s_rgCurations = data.rgCurations || {};
 				GDynamicStore.s_rgCreatorsFollowed = fnConvertToMap( data.rgCreatorsFollowed );
 				GDynamicStore.s_rgCreatorsIgnored = fnConvertToMap( data.rgCreatorsIgnored );
+				GDynamicStore.s_bAllowAppImpressions = data.bAllowAppImpressions || false;
 
 				if ( data.rgExcludedTags && data.rgExcludedTags.length > 0 )
 				{
@@ -221,7 +251,8 @@ GDynamicStore = {
 		}
 		else
 		{
-			GDynamicStore.s_rgExcludedDescIDs[3] = 3;
+			if ( !opts.bNoDefaultDescriptors )
+				GDynamicStore.s_rgExcludedDescIDs[3] = 3;
 
 			var url = 'https://store.steampowered.com/dynamicstore/saledata/?cc=' + strCC;
 
@@ -229,6 +260,7 @@ GDynamicStore = {
 				GDynamicStore.s_nPromotionalDiscount = data.nPromotionalDiscount ? data.nPromotionalDiscount : 0;
 				GDynamicStore.s_nPromotionalDiscountMinCartAmount = data.nPromotionalDiscountMinCartAmount ? data.nPromotionalDiscountMinCartAmount : 0;
 				GDynamicStore.s_nPromotionalDiscountAvailableUseCount = data.nPromotionalDiscountAvailableUseCount ? data.nPromotionalDiscountAvailableUseCount : 0;
+				GDynamicStore.s_bAllowAppImpressions = data.bAllowAppImpressions || false;
 
 			}).always( function() { $J(fnRunOnLoadCallbacks); } );
 		}
@@ -353,7 +385,7 @@ GDynamicStore = {
 
 			GDynamicStore.s_ImpressionTracker.RegisterElement( elTarget )
 		});
-		
+
 		// find our horizontal scrollers and add tracking to them
 
 		$J('.store_horizontal_autoslider' ).each(function(i, elTarget ){
@@ -366,7 +398,13 @@ GDynamicStore = {
 
 	s_oImpressionsTracked: {},
 	AddImpressionFromDynamicItem: function( $Elem )
-	{
+	{		
+		if ( !GDynamicStore.s_bAllowAppImpressions )
+		{
+						return;
+		}
+
+		
 		if ( $Elem.hasClass( 'app_impression_tracked' ) )
 		{
 			return;
@@ -419,7 +457,7 @@ GDynamicStore = {
 			return;
 
 		rgImpressions.push( rgAppIDsToReport.join( ':' ) + '@' + snr );
-		V_SetCookie( "app_impressions", rgImpressions.join( '|' ) );
+		V_SetCookie( "app_impressions", JoinImpressionsUpToLimit( rgImpressions ) );
 	},
 
 	AddImpression: function( $Elem, appID, strLink )
@@ -439,7 +477,7 @@ GDynamicStore = {
 			var rgImpressions = strImpressions && strImpressions.length != 0 ? strImpressions.split( "|" ) : [];
 			var strImpressionData = appID + '@' + snr;
 			rgImpressions.push( strImpressionData );
-			V_SetCookie( "app_impressions", rgImpressions.join( '|' ) );
+			V_SetCookie( "app_impressions", JoinImpressionsUpToLimit( rgImpressions ) );
 		}
 	},
 
@@ -510,7 +548,7 @@ GDynamicStore = {
 		{
 			UpdatePricesForAdditionalCartDiscount($Selector, GDynamicStore.s_nRemainingCartDiscount);
 		}
-		
+
 		var bBannerShown = false;
 		if ( GDynamicStore.s_nTotalCartDiscount != 'undefined ')
 		{
@@ -676,7 +714,12 @@ GDynamicStore = {
 					$El.append( '<div class="ds_flag ds_incart_flag">IN CART&nbsp;&nbsp;</div>');
 				}
 
-				if ( rgExcludedContentDescriptorIDs.length != 0 )
+				if ( $El.hasClass( 'ds_excluded_blur' ) )
+				{
+					$El.addClass( 'ds_flagged' );
+                	$El.append( '<div class="ds_flag ds_excluded_by_preferences_flag">EXCLUDED BY PREFERENCES&nbsp;&nbsp;</div>' );
+				}
+				else if ( rgExcludedContentDescriptorIDs.length != 0 )
 				{
 					$El.addClass( 'ds_flagged ds_excluded_by_preferences' );
 					$El.append( '<div class="ds_flag ds_excluded_by_preferences_flag">EXCLUDED BY PREFERENCES&nbsp;&nbsp;</div>' );
@@ -871,7 +914,6 @@ GDynamicStore = {
 	},
 
 
-	
 	ToggleClientsideFilter: function( elControl, strToggleClass, elResults, strFilterClass )
 	{
 		$Control = $J(elControl);
@@ -1155,7 +1197,7 @@ GDynamicStore = {
 
 		$Element.empty();
 		$Element.css( 'min-height', '' );
-		for( var i = 0; i < GDynamicStore.s_rgRecommendedTags.length && i < 5; i++ )
+		for( var i = 0; i < GDynamicStore.s_rgRecommendedTags.length && i < 4; i++ )
 		{
 			var tag = GDynamicStore.s_rgRecommendedTags[i];
 			var url = 'https://store.steampowered.com/tags/en/' + encodeURIComponent( tag.name );
@@ -1282,7 +1324,7 @@ GDynamicStore = {
 	{
 		return ( packageid in GDynamicStore.s_rgIgnoredPackages );
 	},
-	
+
 	GetCuratorForApp: function( unAppID, bOnlyPositive )
 	{
 		var curator = null;
@@ -1705,7 +1747,7 @@ GStoreItemData = {
 		// override with item-specific URL
 		if ( rgItemData.url )
 			params['href'] = GStoreItemData.AddNavEventParamsToURL( rgItemData.url, strFeatureContext, nDepth, params['curator_clanid'] );
-		
+
 		return rgItemData;
 	},
 
@@ -1745,7 +1787,7 @@ GStoreItemData = {
 			}
 		}
 
-		if ( rgItemData.vr_htcvive || rgItemData.vr_oculusrift || rgItemData.vr_razerosvr || rgItemData.vr_windowsmr )
+		if ( rgItemData.vr_htcvive || rgItemData.vr_oculusrift || rgItemData.vr_windowsmr )
 		{
 			strHTML += '<span class="platform_img hmd_separator"></span>';
 
@@ -1756,10 +1798,6 @@ GStoreItemData = {
 			if ( rgItemData.vr_oculusrift )
 			{
 				strHTML += '<span class="platform_img oculusrift"></span>';
-			}
-			if ( rgItemData.vr_razerosvr )
-			{
-				strHTML += '<span class="platform_img razerosvr"></span>';
 			}
 			if ( rgItemData.vr_windowsmr )
 			{
@@ -1775,6 +1813,10 @@ GStoreItemData = {
 	FilterItemsForDisplay: function( rgItems, Settings, ApplicableSettings, cMaxItemsToDisplay, cMinItemsToDisplay )
 	{
 		var rgStrictItems = [], rgGoodItems = [], rgOtherItems = [], rgBadItems = [];
+
+		var fnAnnotatePriority = function ( item, priority ) { return item; };
+		if ( Settings.include_priority )
+			fnAnnotatePriority = function ( item, priority ) { item.priority = priority; return item; };
 
 		if ( !cMaxItemsToDisplay )
 			cMaxItemsToDisplay = rgItems.length;
@@ -1829,18 +1871,23 @@ GStoreItemData = {
 				break;
 		}
 
+		if ( Settings.include_priority )
+			rgStrictItems.forEach( function( item ) { fnAnnotatePriority( item , 1 ); } );
+
 		if ( cMinItemsToDisplay )
 		{
 			for ( i = 0; rgStrictItems.length < cMinItemsToDisplay && i < rgGoodItems.length; i++ )
-				rgStrictItems.push( rgGoodItems[i] );
+			{
+				rgStrictItems.push( fnAnnotatePriority( rgGoodItems[i], 2 ) );
+			}
 
 			if ( Settings.enforce_minimum )
 			{
 				for ( i = 0; rgStrictItems.length < cMinItemsToDisplay && i < rgOtherItems.length; i++ )
-					rgStrictItems.push( rgOtherItems[i] );
+					rgStrictItems.push( fnAnnotatePriority( rgOtherItems[i], 3 ) );
 
 				for ( i = 0; rgStrictItems.length < cMinItemsToDisplay && i < rgBadItems.length; i++ )
-					rgStrictItems.push( rgBadItems[i] );
+					rgStrictItems.push( fnAnnotatePriority( rgBadItems[i], 4 ) );
 			}
 		}
 
@@ -2198,70 +2245,102 @@ GDynamicStorePage = {
 		} catch( e ) { OnDynamicStorePageException(e); }
 	},
 
-	FilterCapsules: function( nMin, nMax, $elElements, $elContainer, rgFilterParams)
+	ItemIDFromCapsule: function( $capsule )
+	{
+		var unPackageId = $capsule.data('ds-packageid');
+		var unBundleId = $capsule.data('ds-bundleid');
+		var unAppId = $capsule.data('ds-appid');
+
+		// bundles set package and appids, packages set appids, so start from the outside and work down.
+		if ( unBundleId )
+			return { bundleid: unBundleId };
+		else if ( unPackageId)
+			return { packageid: unPackageId };
+		else if ( unAppId )
+			return { appid: unAppId };
+
+		return null;
+	},
+
+	BItemValid: function( item, oShownItems, opts )
+	{
+		var unAppId = item.appid;
+
+		if( unAppId )
+		{
+			var rgAppIds = [ unAppId ];
+			if( unAppId.toString().indexOf(',') !== -1 )
+			{
+				rgAppIds = unAppId.toString().split( ',' );
+				unAppId = rgAppIds[0];
+			}
+
+			for ( var i = 0; i < rgAppIds.length; i++ )
+			{
+				if ( oShownItems.rgAppIds.indexOf( rgAppIds[i] ) !== -1 )
+				{
+					return false;
+				}
+			}
+
+			if ( opts && opts.filter_dlc )
+			{
+				var rgAppData = GStoreItemData.rgAppData[unAppId];
+
+				// Treat DLC as the base app; so we either show the DLC or the base game; but only one (and whichever is in top position).
+				// If the user owns the base game already, only show the DLC
+				if ( rgAppData && rgAppData.dlc_for_app )
+				{
+					if ( !GDynamicStore.BIsAppOwned( rgAppData.dlc_for_app, false ) )
+					{
+						return false;
+					}
+
+					oShownItems.rgAppIds.push( rgAppData.dlc_for_app );
+				}
+			}
+
+			for ( var i = 0; i < rgAppIds.length; i++ )
+				oShownItems.rgAppIds.push( rgAppIds[i] );
+		}
+
+		if ( item.packageid )
+		{
+			if ( oShownItems.rgPackageIds.indexOf( item.packageid ) !== -1 )
+				return false;
+
+			oShownItems.rgPackageIds.push( item.packageid );
+		}
+
+		if ( item.bundleid )
+		{
+			if ( oShownItems.rgBundleIds.indexOf( item.bundleid ) !== -1 )
+				return false;
+
+			oShownItems.rgBundleIds.push( item.bundleid );
+		}
+
+		return true;
+	},
+
+	FilterCapsules: function( nMin, nMax, $elElements, $elContainer, rgFilterParams )
 	{
 		// Get a list of appids to filter
 		var rgItems = [];
-		var rgAppIds = [];
-
-		var fnItemFromCapsule = function( $capsule )
-		{
-			var unPackageId = $capsule.data('ds-packageid');
-			var unBundleId = $capsule.data('ds-bundleid');
-			var unAppId = $capsule.data('ds-appid');
-
-			// bundles set package and appids, packages set appids, so start from the outside and work down.
-			if ( unBundleId )
-				return { bundleid: unBundleId };
-			else if ( unPackageId)
-				return { packageid: unPackageId };
-			else if ( unAppId )
-				return { appid: unAppId };
-
-			return null;
-		}
+		var oShownItems = { rgAppIds: [], rgPackageIds: [], rgBundleIds: [] };
 
 		// Remove duplicates or DLC from the list
 		for( var i = 0; i < $elElements.length; i++ )
 		{
 			var $capsule = $J( $elElements[i] );
-			var item = fnItemFromCapsule( $capsule );
+			var item = GDynamicStorePage.ItemIDFromCapsule( $capsule );
 			if ( !item )
 				continue;
 
-			var unAppId = item.appid;
-
-			if( unAppId )
-			{
-				if( unAppId.toString().indexOf(',') !== -1 )
-					unAppId = unAppId.toString().split(',')[0];
-
-				if( rgAppIds.indexOf( unAppId ) !== -1 )
-				{
-					$capsule.remove();
-					continue;
-				}
-
-				var rgAppData = GStoreItemData.rgAppData[unAppId];
-
-				// Treat DLC as the base app; so we either show the DLC or the base game; but only one (and whichever is in top position).
-				// If the user owns the base game already, only show the DLC
-				if( rgAppData && rgAppData.dlc_for_app )
-				{
-					if( !GDynamicStore.BIsAppOwned( rgAppData.dlc_for_app, false ) )
-					{
-						$capsule.remove();
-						continue;
-					}
-
-					rgAppIds.push( rgAppData.dlc_for_app );
-				}
-
-
-				rgAppIds.push( unAppId );
-			}
-
-			rgItems.push( item );
+			if ( GDynamicStorePage.BItemValid( item, oShownItems, { filter_dlc: true } ) )
+				rgItems.push( item );
+			else
+				$capsule.remove();
 		}
 
 		// Filter
@@ -2273,7 +2352,7 @@ GDynamicStorePage = {
 		for( var i = 0; i < $elElements.length; i++ )
 		{
 			var $capsule = $J( $elElements[i] );
-			var item = fnItemFromCapsule( $capsule );
+			var item = GDynamicStorePage.ItemIDFromCapsule( $capsule );
 			if ( !item )
 				continue;
 
@@ -2303,7 +2382,6 @@ GDynamicStorePage = {
 	{
 		if( rgList )
 		{
-
 			for ( var i = 0; i < rgList.length; i++ )
 			{
 				if ( oItem.bundleid && rgList[i].bundleid == oItem.bundleid )
@@ -2325,7 +2403,6 @@ GDynamicStorePage = {
 
 	FilterItemsForDisplay: function( rgItems, strSettingsName, cMinItemsToDisplay, cMaxItemsToDisplay, rgAdditionalSettings )
 	{
-
 		var Settings = this.oSettings[strSettingsName] || {};
 		var ApplicableSettings = this.oApplicableSettings[strSettingsName] || {};
 
@@ -2348,7 +2425,131 @@ GDynamicStorePage = {
 		return GStoreItemData.FilterItemsForDisplay( rgItems, Settings, ApplicableSettings, cMaxItemsToDisplay, cMinItemsToDisplay )
 	},
 
+	FilterAndPrioritizeCapsules: function( rgCapsules, strPriorityListKey, strSettingsName, AdditionalSettings, oShownItems, cMinItemsToDisplay )
+	{
+		// initialize the shown item list
+		if ( !oShownItems.rgAppIds )
+			$J.extend( oShownItems, { rgAppIds: [], rgPackageIds: [], rgBundleIds: [] }, oShownItems );
+
+		var rgPriorityList = g_rgAppPriorityLists[strPriorityListKey] || [];
+		var rgItems = [];
+		var rgUnidentifiedCaps = [];
+
+		for ( var i = 0; i < rgCapsules.length; i++ )
+		{
+			var $capsule = $J( rgCapsules[i] );
+			var itemid = GDynamicStorePage.ItemIDFromCapsule( $capsule );
+
+			if ( !itemid )
+			{
+				// if there's no item associated, preseve it; it's probably a sale page or event
+				rgUnidentifiedCaps.push( $capsule );
+				continue;
+			}
+			else if ( !GDynamicStorePage.BItemValid( itemid, oShownItems ) )
+			{
+				// duplicate
+				continue;
+			}
+
+			itemid.capsule = $capsule;
+			rgItems.push( itemid );
+		}
+
+		rgItems =  SortItemListByPriorityList( rgItems, strPriorityListKey );
+		var rgItems = GDynamicStorePage.FilterItemsForDisplay( rgItems, strSettingsName, cMinItemsToDisplay, rgItems.length, AdditionalSettings );
+
+		// put anything we didn't understand at the front
+		while ( rgUnidentifiedCaps.length )
+			rgItems.unshift( { capsule: rgUnidentifiedCaps.shift(), priority: 1 } );
+
+		return rgItems;
+	},
+
+	FilterAndPrioritizeItems: function( rgItems, strPriorityListKey, strSettingsName, AdditionalSettings, oShownItems, cMinItemsToDisplay )
+	{
+		// initialize the shown item list
+		if ( !oShownItems.rgAppIds )
+			$J.extend( oShownItems, { rgAppIds: [], rgPackageIds: [], rgBundleIds: [] }, oShownItems );
+
+		// first filter out items that are dupes of ones we've already been asked to list
+		var rgItemsNoDupes = [];
+		for( var i = 0; i < rgItems.length; i++ )
+		{
+			if ( GDynamicStorePage.BItemValid( rgItems[i], oShownItems ) )
+				rgItemsNoDupes.push( rgItems[i] );
+		}
+		rgItemsNoDupes = SortItemListByPriorityList( rgItemsNoDupes, strPriorityListKey );
+		return GDynamicStorePage.FilterItemsForDisplay( rgItemsNoDupes, strSettingsName, cMinItemsToDisplay, rgItemsNoDupes.length, AdditionalSettings );
+	},
 };
+
+var g_rgAppPriorityLists = {};
+var g_rgAppPriorityListMaps = {};
+function InitAppPriorityLists( rgAppPriorityLists )
+{
+	$J.extend( g_rgAppPriorityLists, rgAppPriorityLists );
+}
+
+function GetAppPriorityListMap( strPriorityListName )
+{
+	if ( !g_rgAppPriorityListMaps[strPriorityListName] )
+	{
+		var rgAppPriorityList = g_rgAppPriorityLists[strPriorityListName] || [];
+
+		var rgPositionByApp = {};
+		for ( var i = 0; i < rgAppPriorityList.length; i++ )
+			rgPositionByApp[ ItemKey( rgAppPriorityList[i] ) ] = i;
+
+		g_rgAppPriorityListMaps[strPriorityListName] = rgPositionByApp;
+	}
+
+	return g_rgAppPriorityListMaps[strPriorityListName];
+}
+
+function ItemKey( rgItem )
+{
+	if ( rgItem.appid )
+		return 'a' + rgItem.appid;
+	else if ( rgItem.packageid )
+		return 'p' + rgItem.packageid;
+	else if ( rgItem.bundleid )
+		return 'b' + rgItem.bundleid;
+
+	return 'unknown';
+}
+
+function SortItemListByPriorityList( rgItemList, strPriorityListName )
+{
+	var rgPositionByApp = GetAppPriorityListMap( strPriorityListName );
+	if ( !rgPositionByApp )
+		return rgItemList.slice();
+
+	/*
+	javascript sort is stable (except in IE), so this shouldn't be needed
+	for ( var i = 0; i < rgItemList.length; i++ )
+	{
+		var key = ItemKey( rgItemList[i] );
+		if ( key && rgPositionByApp[key] === undefined )
+			rgPositionByApp[key] = i + 1000;
+	}
+	 */
+
+	var rgItemListSorted = rgItemList.slice();
+	rgItemListSorted.sort( function( a, b ) {
+		var posA = rgPositionByApp[ ItemKey( a ) ];
+		var posB = rgPositionByApp[ ItemKey( b ) ];
+		return ( posA !== undefined ? posA : 1000 ) - ( posB !== undefined ? posB : 1000 );
+	});
+
+	DEBUG_LogItemList( strPriorityListName, rgItemListSorted );
+
+	return rgItemListSorted;
+}
+
+function DEBUG_LogItemList( strListName, rgItems )
+{
+	}
 
 function ShowHowDoDiscoveryQueuesWorkDialog()
 {
@@ -2366,15 +2567,15 @@ function ShowHowDoDiscoveryQueuesWorkDialog()
 
 function GetAvatarURL( strHash, strSize )
 {
-	return "https:\/\/steamcdn-a.akamaihd.net\/steamcommunity\/public\/images\/avatars\/" + strHash.substring( 0, 2 ) + '/' + strHash + strSize + '.jpg';
+	return "https:\/\/cdn.cloudflare.steamstatic.com\/steamcommunity\/public\/images\/avatars\/" + strHash.substring( 0, 2 ) + '/' + strHash + strSize + '.jpg';
 }
 
 function GetScreenshotURL( appid, filename, sizeStr )
 {
 	if( sizeStr )
-		return 'https://steamcdn-a.akamaihd.net/steam/' + 'apps/' + appid + '/' + filename.replace('.jpg', sizeStr + '.jpg');
+		return 'https://cdn.cloudflare.steamstatic.com/steam/' + 'apps/' + appid + '/' + filename.replace('.jpg', sizeStr + '.jpg');
 
-	return 'https://steamcdn-a.akamaihd.net/steam/' + 'apps/' + appid + '/' + filename;
+	return 'https://cdn.cloudflare.steamstatic.com/steam/' + 'apps/' + appid + '/' + filename;
 }
 
 
@@ -2435,7 +2636,7 @@ function UpdateStoreBannerForAdditionalCartDiscount( nCartDiscount )
 			<div class="sparkleStar star3"></div> \
 		</div> \
 		</div> \
-		<div class="lunar_sale_title"><img src="https://steamstore-a.akamaihd.net/public/images/promo/lunar2019/lny2019_title_en.png"/></div> \
+		<div class="lunar_sale_title"><img src="https://store.cloudflare.steamstatic.com/public/images/promo/lunar2019/lny2019_title_en.png"/></div> \
 		<div class="lunar_sale_spacer lunar_leftspacer"></div> \
 		<div class="lunar_sale_supersavings_label"><div class="highlight">%header%</div><div class="subtitle">%discount%</div></div> \
 		<div class="lunar_sale_spacer lunar_rightspacer">\
